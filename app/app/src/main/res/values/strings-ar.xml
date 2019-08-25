@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">UAH2019</string>
+    <string name="name">الاسم</string>
+    <string name="surname">اسم العائله</string>
+    <string name="streetName">الشارع</string>
+    <string name="cityName">المدينة</string>
+    <string name="email">البريد الالكترونى</string>
+    <string name="phoneNumber">الهاتف الجوال</string>
+    <string name="password">كلمة المرور</string>
+    <string name="signUp">تسجيل</string>
+</resources>
