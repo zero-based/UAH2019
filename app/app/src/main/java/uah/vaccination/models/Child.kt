@@ -1,7 +1,4 @@
-package uah.vaccination.Models
-
 import com.google.firebase.Timestamp
-
 
 data class Child(
     val id: String? = null,
@@ -9,5 +6,4 @@ data class Child(
     val surname: String? = null,
     val dateOfBirth: Timestamp? = null,
     val parentId : String? = null
-
 )
