@@ -1,7 +1,8 @@
-package uah.vaccination
+package uah.vaccination.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import uah.vaccination.R
 
 class MainActivity : AppCompatActivity() {
 
