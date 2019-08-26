@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Schedule sending reminder emails",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichelineMedhat/UAH2019.git"
+  },
+  "keywords": [
+    "uah-2019"
+  ],
+  "author": "zero-based",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichelineMedhat/UAH2019/issues"
+  },
+  "homepage": "https://github.com/MichelineMedhat/UAH2019#readme",
+  "dependencies": {
+    "firebase-admin": "^8.4.0"
+  }
+}
