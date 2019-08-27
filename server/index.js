@@ -1,3 +1,5 @@
+require("dotenv").config();
+var nodemailer = require("nodemailer");
 var admin = require("firebase-admin");
 var serviceAccount = require("./serviceAccountKey.json");
 
@@ -13,7 +15,19 @@ parentsRef.get().then(snapshot => {
   snapshot.forEach(parentDoc => sendEmail(parentDoc.data()));
 });
 
+var transporter = nodemailer.createTransport({
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASS
+  }
+});
+
 function sendEmail(parent) {
+
   for (const child of parent.children) {
     var birthDate = child.dateOfBirth._seconds;
     var now = Math.floor(Date.now() / 1000);
@@ -38,10 +52,18 @@ function sendEmail(parent) {
       var isSecondReminder = 0 <= diff2 && diff2 <= threshold;
       if (isFirstReminder || isSecondReminder) {
         // Send Email
-        // var doseNumber = i
-        // var monthFromBirth = intervals[i]
-        // var daysUntilVaccination = isFirstReminder ? firstReminderDays : secondReminderDays
-        console.log(parent.id, "=>", "Email Sent!");
+        var doseNumber = i + 1;
+        var monthFromBirth = intervals[i];
+        var daysUntilVaccination = isFirstReminder
+          ? firstReminderDays
+          : secondReminderDays;
+
+        var info = transporter.sendMail({
+          from: process.env.EMAIL,
+          to: parent.email,
+          subject: `[Vaccination] Dose no. (${doseNumber}) to ${child.name}`,
+          text: `${monthFromBirth} months from birth, the child should be vaccinated in ${daysUntilVaccination} days.`
+        });
       }
     }
   }
