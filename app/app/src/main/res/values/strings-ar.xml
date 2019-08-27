@@ -8,4 +8,6 @@
     <string name="phoneNumber">الهاتف الجوال</string>
     <string name="password">كلمة المرور</string>
     <string name="signUp">تسجيل</string>
+    <string name="sign_in">تسجيل دخول</string>
+    <string name="sign_up">انشاء حساب</string>
 </resources>

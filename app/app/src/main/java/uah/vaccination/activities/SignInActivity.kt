@@ -11,43 +11,38 @@ import uah.vaccination.R
 
 class SignInActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onStart() {
         super.onStart()
         FirebaseAuth.getInstance().currentUser ?: return
-
-        val intent = Intent(this, MainActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-
-        finish()
-        startActivity(intent)
+        startMainActivity(true)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
         sign_in_button.setOnClickListener {
-            if(validateInput()){
-                SignIn(email_edit_text.text.toString(),password_edit_text.text.toString())
+            if (validateInput()) {
+                signIn(email_edit_text.text.toString(), password_edit_text.text.toString())
             }
         }
 
         createAnAccount_text_view.setOnClickListener {
-            StartMainActivity()
+            startMainActivity(false)
         }
 
     }
 
-    fun validateInput() :Boolean{
+    private fun validateInput(): Boolean {
         val isEmailEmpty = email_edit_text.text.isNullOrEmpty()
         val isPasswordEmpty = password_edit_text.text.isNullOrEmpty()
 
         if (!isEmailEmpty &&
-            !isPasswordEmpty)
+            !isPasswordEmpty
+        )
             return true
         else {
             if (isEmailEmpty) email_edit_text.error = "Required Field."
@@ -55,22 +50,25 @@ class SignInActivity : AppCompatActivity() {
         }
         return false
     }
-    fun SignIn(email:String, password:String) {
+
+    private fun signIn(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    StartMainActivity()
+                    startMainActivity(true)
                 }
             }
     }
-    fun StartMainActivity(){
+
+    private fun startMainActivity(addFlags: Boolean) {
         val intent = Intent(this, SignUpActivity::class.java)
-            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        if (addFlags) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
         finish()
         startActivity(intent)
     }
-
 
 }
 
