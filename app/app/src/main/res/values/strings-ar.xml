@@ -10,4 +10,6 @@
     <string name="signUp">تسجيل</string>
     <string name="sign_in">تسجيل دخول</string>
     <string name="sign_up">انشاء حساب</string>
+    <string name="dateOfBirth">تاريخ الميلاد</string>
+    <string name="parentId">رقم ولي الأمر</string>
 </resources>
