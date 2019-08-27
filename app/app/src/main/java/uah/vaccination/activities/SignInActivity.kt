@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_sign_in.*
-import kotlinx.android.synthetic.main.activity_sign_in.email_edit_text
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import uah.vaccination.R
 
 class SignInActivity : AppCompatActivity() {
@@ -16,7 +14,7 @@ class SignInActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         FirebaseAuth.getInstance().currentUser ?: return
-        startMainActivity(true)
+        navigateToActivity(true, MainActivity::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +29,7 @@ class SignInActivity : AppCompatActivity() {
         }
 
         createAnAccount_text_view.setOnClickListener {
-            startMainActivity(false)
+            navigateToActivity(false, SignUpActivity::class.java)
         }
 
     }
@@ -55,13 +53,13 @@ class SignInActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    startMainActivity(true)
+                    navigateToActivity(true, MainActivity::class.java)
                 }
             }
     }
 
-    private fun startMainActivity(addFlags: Boolean) {
-        val intent = Intent(this, SignUpActivity::class.java)
+    private fun navigateToActivity(addFlags: Boolean, activity: Class<out AppCompatActivity>) {
+        val intent = Intent(this, activity)
         if (addFlags) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

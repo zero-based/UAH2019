@@ -8,5 +8,5 @@ data class Parent(
     val city: String? = null,
     val email: String? = null,
     val phoneNumber: String? = null,
-    val child: ArrayList<Child>? = arrayListOf()
+    val children: ArrayList<Child>? = arrayListOf()
 )
