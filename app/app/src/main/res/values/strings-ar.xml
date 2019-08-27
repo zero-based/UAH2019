@@ -12,4 +12,5 @@
     <string name="sign_up">انشاء حساب</string>
     <string name="dateOfBirth">تاريخ الميلاد</string>
     <string name="parentId">رقم ولي الأمر</string>
+    <string name="search">بحث</string>
 </resources>
