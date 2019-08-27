@@ -7,8 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_sign_up.*
+import okhttp3.*
+import org.json.JSONArray
+import org.json.JSONObject
 import uah.vaccination.R
 import uah.vaccination.models.Parent
+import java.io.IOException
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -22,9 +26,8 @@ class SignUpActivity : AppCompatActivity() {
 
         sign_up_button.setOnClickListener {
             if (validateInput()) {
-                signUp(email_edit_text.text.toString(), password_edit_text.text.toString())
+                validateEmail(email_edit_text.text.toString())
             }
-
         }
     }
 
@@ -97,5 +100,36 @@ class SignUpActivity : AppCompatActivity() {
     ) {
         val parent = Parent(id, name, surname, street, city, email, phoneNumber)
         firestore.collection("parents").document(email).set(parent)
+    }
+
+
+    fun validateEmail(email: String) {
+
+        val request = Request.Builder()
+            .url("https://us-central1-uah-2019.cloudfunctions.net/emailValidation?email=$email")
+            .method("GET",null)
+            .build()
+
+        val mOkHttpClient = OkHttpClient()
+        val mCall = mOkHttpClient.newCall(request)
+
+        mCall?.enqueue(object : Callback {
+            override fun onResponse(call: Call, response: Response) {
+
+                val jsonData = response.body()!!.string()
+                val Jobject  = JSONObject(jsonData)
+                val isUah = Jobject.getBoolean("isUAH")
+
+                if(isUah){
+                    signUp(email_edit_text.text.toString(), password_edit_text.text.toString())
+                }else {
+                    Toast.makeText(baseContext, "DOESN'T MATCH UNICODE", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+            override fun onFailure(call: Call, e: IOException) {
+                Toast.makeText(baseContext, "DOESN'T MATCH UNICODE", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }
