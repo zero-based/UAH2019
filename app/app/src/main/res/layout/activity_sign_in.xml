@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView   xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              tools:context=".activities.SignInActivity">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activities.SignInActivity">
 
-<LinearLayout android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:padding="48dp"
-              android:layout_gravity="center">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="48dp"
+                  android:gravity="center"
+                  android:layout_gravity="center">
 
-    <EditText android:id="@+id/email_edit_text"
-              android:layout_width="match_parent"
-              android:layout_height="48dp"
-              android:hint="البريد الالكترونى"
-              android:layout_marginBottom="16dp"/>
+        <EditText android:id="@+id/email_edit_text"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:hint="@string/email"
+                  android:layout_marginBottom="16dp"/>
 
-    <EditText android:layout_width="match_parent"
-              android:layout_height="48dp"
-              android:hint="كلمه المرور"
-              android:layout_marginBottom="16dp"/>
+        <EditText android:layout_width="match_parent"
+                  android:layout_height="48dp"
+                  android:hint="@string/password"
+                  android:layout_marginBottom="16dp"/>
 
-    <Button android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="تسجيل دخول"
-            android:layout_marginBottom="16dp"/>
+        <Button android:id="@+id/sign_in_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sign_in"
+                android:layout_marginBottom="16dp"/>
 
-    <TextView android:id="@+id/createAnAccount_text_view"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="انشاء حساب"
-              android:layout_gravity="center"
-              android:textColor="@color/colorPrimary"/>
-</LinearLayout>
+        <TextView android:id="@+id/createAnAccount_text_view"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/sign_up"
+                  android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
 
 </ScrollView>

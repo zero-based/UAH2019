@@ -2,7 +2,6 @@ package uah.vaccination.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -13,11 +12,10 @@ import uah.vaccination.models.Parent
 
 class SignUpActivity : AppCompatActivity() {
 
-    private lateinit var auth: FirebaseAuth
-    val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        auth = FirebaseAuth.getInstance()
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -31,12 +29,12 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun validateInput(): Boolean {
-        val isNameEmpty     = name_edit_text.text.isNullOrEmpty()
-        val isSurnameEmpty  = surname_edit_text.text.isNullOrEmpty()
-        val isStreetEmpty   = street_edit_text.text.isNullOrEmpty()
-        val isCityEmpty     = city_edit_text.text.isNullOrEmpty()
-        val isEmailEmpty    = email_edit_text.text.isNullOrEmpty()
-        val isPhoneEmpty    = phone_edit_text.text.isNullOrEmpty()
+        val isNameEmpty = name_edit_text.text.isNullOrEmpty()
+        val isSurnameEmpty = surname_edit_text.text.isNullOrEmpty()
+        val isStreetEmpty = street_edit_text.text.isNullOrEmpty()
+        val isCityEmpty = city_edit_text.text.isNullOrEmpty()
+        val isEmailEmpty = email_edit_text.text.isNullOrEmpty()
+        val isPhoneEmpty = phone_edit_text.text.isNullOrEmpty()
         val isPasswordEmpty = password_edit_text.text.isNullOrEmpty()
 
         if (!isNameEmpty &&
@@ -61,17 +59,17 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUp(email: String, password: String) {
-        Log.d("lol", email + password)
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    val parent = task.result!!.user
                     addParent(
-                        "101",
+                        parent!!.uid,
                         name_edit_text.text.toString(),
                         surname_edit_text.text.toString(),
                         street_edit_text.text.toString(),
                         city_edit_text.text.toString(),
-                        email_edit_text.text.toString(),
+                        email,
                         phone_edit_text.text.toString()
                     )
                     val intent = Intent(this, MainActivity::class.java)
@@ -98,6 +96,6 @@ class SignUpActivity : AppCompatActivity() {
         phoneNumber: String
     ) {
         val parent = Parent(id, name, surname, street, city, email, phoneNumber)
-        db.collection("parents").document(email).set(parent)
+        firestore.collection("parents").document(email).set(parent)
     }
 }
