@@ -1,3 +1,5 @@
+package uah.vaccination.models
+
 data class Parent(
     val id: String? = null,
     val name: String? = null,

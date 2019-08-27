@@ -1,3 +1,4 @@
+package uah.vaccination.models
 import com.google.firebase.Timestamp
 
 data class Child(
